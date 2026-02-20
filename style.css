@@ -11,7 +11,7 @@
   --font-body: 'Montserrat', Arial, sans-serif;
 }
 
-/* Reset & Base structure */
+/* Base styles */
 html {
   box-sizing: border-box;
   font-size: 18px;
@@ -28,9 +28,15 @@ body {
   color: var(--text-dark);
   background: linear-gradient(135deg, #eaf6fb 0%, #9fd8cb 80%);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hero Section */
+button, a, input[type="checkbox"], input[type="text"] {
+  touch-action: manipulation;
+}
+
+/* Hero section */
 .hero-section {
   position: relative;
   display: flex;
@@ -47,7 +53,6 @@ body {
 .hero-bg {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  /* Optionally you can add a hero-img here as a background */
   background: rgba(96,163,252,0.20);
   z-index: 1;
 }
@@ -76,7 +81,6 @@ body {
   margin-bottom: 2rem;
 }
 
-/* Gradient button styles */
 .scroll-btn, .routine-card a {
   display: inline-block;
   background: linear-gradient(90deg, #60a3fc 0%, #9fd8cb 100%);
@@ -121,7 +125,6 @@ body {
   gap: 2rem;
 }
 
-/* Routine Card Styling */
 .routine-card {
   background: var(--accent);
   border-radius: var(--radius);
@@ -164,19 +167,31 @@ body {
   line-height: 1.65;
 }
 
-/* Weekly Challenge/Table Styling */
-.challenge-section {
+.challenge-section,
+.tracker-section {
   padding: 2.5rem 1rem 3.5rem 1rem;
   margin: auto;
   max-width: 1000px;
 }
-.challenge-section h2 {
+.challenge-section h2,
+.tracker-section h2 {
   text-align: center;
   color: var(--primary);
   margin-bottom: 1.7rem;
   font-family: var(--font-title);
   font-size: 2rem;
 }
+
+.tracker-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #fafdff;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
 .challenge-table-container {
   overflow-x: auto;
   border-radius: var(--radius);
@@ -184,42 +199,58 @@ body {
   background: #fafdff;
   padding: 1rem;
 }
+
 .challenge-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  min-width: 400px;
+  min-width: 100%;
+  table-layout: auto;
 }
-.challenge-table th, .challenge-table td {
-  padding: 0.8rem 1.2rem;
+
+.challenge-table th, 
+.challenge-table td {
+  padding: 0.8rem 1rem;
   text-align: center;
   background: #eaf6fb;
   border-bottom: 2px solid #dbeafe;
   font-size: 1rem;
+  word-wrap: break-word;
 }
+
 .challenge-table th {
   color: var(--primary);
   background: #e0f2fe;
   font-family: var(--font-title);
   font-weight: 600;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.5px;
 }
+
 .challenge-table tr:last-child td {
   border-bottom: none;
 }
+
 .challenge-table input[type="checkbox"] {
   accent-color: var(--primary);
   transform: scale(1.2);
   cursor: pointer;
+  min-width: 20px;
+  min-height: 20px;
 }
+
 .challenge-table input[type="text"] {
   border: 1.5px solid #b9e6fc;
-  border-radius: 16px;
-  padding: 0.3em 1em;
-  font-size: 0.95rem;
+  border-radius: 12px;
+  padding: 0.5em 0.8em;
+  font-size: 0.9rem;
   box-shadow: 0 1px 6px 0 rgba(55, 172, 192, 0.05);
   transition: border var(--transition), box-shadow var(--transition);
+  width: 100%;
+  max-width: 150px;
+  box-sizing: border-box;
+  text-align: center;
 }
+
 .challenge-table input[type="text"]:focus {
   border: 2px solid var(--primary);
   outline: none;
@@ -232,7 +263,7 @@ body {
   color: var(--text-light);
   margin-top: 2.5rem;
   text-align: center;
-  padding: 2.5rem 1rem 1.4rem 1rem;
+  padding: 3rem 1.5rem 2rem 1.5rem;
   border-radius: var(--radius) var(--radius) 0 0;
   box-shadow: var(--shadow);
 }
@@ -240,16 +271,25 @@ body {
 .footer-quote {
   font-size: 1.15rem;
   font-style: italic;
-  margin-bottom: 1.2rem;
-  letter-spacing: 0.6px;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-quote br {
+  display: block;
+  margin: 0.5rem 0;
 }
 
 .footer-note {
   font-size: 1rem;
-  opacity: 0.92;
+  opacity: 0.95;
+  margin-top: 1rem;
 }
 
-/* Animations */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -271,7 +311,16 @@ body {
   animation: fadeInUp 1.2s 0.2s both;
 }
 
-/* Responsive Design */
+@media (max-width: 768px) {
+  section {
+    margin-bottom: 1.5rem;
+  }
+  
+  button, .scroll-btn, .plank-btn, .breathing-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
 @media (max-width: 900px) {
   .hero-section {
     height: 54vh;
@@ -325,26 +374,60 @@ body {
   html {
     font-size: 16px;
   }
+  
   .hero-section {
-    height: 36vh;
-    min-height: 180px;
+    height: 40vh;
+    min-height: 250px;
     border-radius: 0 0 1rem 1rem;
+    margin-bottom: 1rem;
   }
   .hero-content {
-    padding: 1.1rem 0.3rem;
+    padding: 1.5rem 1rem;
   }
+  .hero-content h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  .hero-content .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .scroll-btn {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+  
   .routine-section {
-    padding: 1.2rem 0.2rem;
+    padding: 2rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .routine-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+  .routine-cards {
+    gap: 1.5rem;
   }
   .routine-card {
-    padding: 1.1rem 0.5rem 1rem 0.5rem;
+    padding: 1.5rem 1rem;
+  }
+  .routine-card h3 {
+    font-size: 1.2rem;
+  }
+  .routine-card ul {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
   .budget-section {
     padding: 2rem 1rem;
+    margin-bottom: 1rem;
   }
   .budget-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 1.5rem;
+    line-height: 1.3;
   }
   .budget-cards {
     grid-template-columns: 1fr;
@@ -353,14 +436,23 @@ body {
   }
   .budget-card {
     max-width: 100%;
-    padding: 1.5rem 1.2rem;
+    padding: 1.5rem 1rem;
   }
+  .budget-card h3 {
+    font-size: 1.2rem;
+  }
+  .budget-card p {
+    font-size: 0.95rem;
+  }
+  
   .benefits-section {
     padding: 2rem 1rem;
+    margin-bottom: 1rem;
   }
   .benefits-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 1.5rem;
+    line-height: 1.3;
   }
   .benefits-cards {
     grid-template-columns: 1fr;
@@ -369,14 +461,23 @@ body {
   }
   .benefit-card {
     max-width: 100%;
-    padding: 1.5rem 1.2rem;
+    padding: 1.5rem 1rem;
   }
+  .benefit-card h3 {
+    font-size: 1.2rem;
+  }
+  .benefit-card p {
+    font-size: 0.95rem;
+  }
+  
   .roleplay-section {
     padding: 2rem 1rem;
+    margin-bottom: 1rem;
   }
   .roleplay-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 1.5rem;
+    line-height: 1.3;
   }
   .roleplay-cards {
     grid-template-columns: 1fr;
@@ -385,19 +486,26 @@ body {
   }
   .role-card {
     max-width: 100%;
-    padding: 1.5rem 1.2rem;
+    padding: 1.5rem 1rem;
+  }
+  .role-card h3 {
+    font-size: 1.2rem;
+  }
+  .role-card p {
+    font-size: 0.95rem;
   }
   .workouts-section {
-    padding: 2.5rem 1rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 2rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   .workouts-section h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+    line-height: 1.3;
   }
   .workouts-subtitle {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
   }
   .workouts-grid {
     grid-template-columns: 1fr;
@@ -408,21 +516,58 @@ body {
     max-width: 100%;
   }
   .workout-content {
-    padding: 1.5rem 1.2rem;
+    padding: 1.5rem 1rem;
   }
   .workout-content h3 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
+  .workout-duration {
+    font-size: 0.9rem;
+  }
+  .workout-description {
+    font-size: 0.95rem;
+  }
+  
   .plank-section {
     padding: 2rem 1rem;
     margin: 1.5rem auto;
   }
+  .plank-section h2 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+  .plank-section p {
+    font-size: 0.95rem;
+  }
+  .plank-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+  .plank-timer {
+    font-size: 2rem;
+  }
+  #timer-display {
+    font-size: 2.5rem;
+  }
+  
   .breathing-section {
     padding: 2rem 1rem;
     margin: 1.5rem auto;
   }
   .breathing-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+  .breathing-section p {
+    font-size: 0.95rem;
+  }
+  .breathing-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
   }
   .breathing-timer {
     font-size: 2rem;
@@ -431,24 +576,94 @@ body {
     font-size: 2.5rem;
   }
   .breathing-instruction {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   #breath-phase {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
+  
+  .tracker-section {
+    padding: 2rem 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .tracker-section h2 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .tracker-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem;
+    margin: 0 -0.3rem;
+  }
+  .challenge-table {
+    min-width: 100%;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+  .challenge-table th {
+    padding: 0.9rem 0.5rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  .challenge-table th:first-child {
+    width: 25%;
+  }
+  .challenge-table th:nth-child(2) {
+    width: 25%;
+  }
+  .challenge-table th:nth-child(3) {
+    width: 50%;
+  }
+  .challenge-table td {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  .challenge-table input[type="checkbox"] {
+    transform: scale(1.3);
+    cursor: pointer;
+  }
+  .challenge-table input[type="text"] {
+    padding: 0.5em 0.7em;
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+  
   .footer-section {
-    font-size: 0.96rem;
-    padding: 1.3rem 0.5rem 1rem 0.5rem;
+    padding: 2.5rem 1rem 2rem 1rem;
     border-radius: 1rem 1rem 0 0;
+    margin-top: 2rem;
+  }
+  .footer-quote {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .footer-quote br {
+    display: block;
+    margin: 0.5rem 0;
+  }
+  .footer-note {
+    font-size: 0.9rem;
+    opacity: 0.95;
   }
 }
 
 @media (max-width: 400px) {
+  html {
+    font-size: 15px;
+  }
+  
   .hero-content h1 {
     font-size: 1.5rem;
   }
   .routine-section h2 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   .budget-section h2 {
     font-size: 1.3rem;
@@ -506,13 +721,35 @@ body {
     font-size: 0.9rem;
   }
   .workout-description {
+    font-size: 0.9rem;
+  }
+  
+  .plank-section {
+    padding: 1.5rem 0.8rem;
+  }
+  .plank-section h2 {
+    font-size: 1.2rem;
+  }
+  .plank-btn {
+    padding: 0.9rem 1.2rem;
     font-size: 0.95rem;
   }
+  .plank-timer {
+    font-size: 1.8rem;
+  }
+  #timer-display {
+    font-size: 2rem;
+  }
+  
   .breathing-section {
     padding: 1.5rem 0.8rem;
   }
   .breathing-section h2 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+  .breathing-btn {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.95rem;
   }
   .breathing-timer {
     font-size: 1.8rem;
@@ -521,10 +758,51 @@ body {
     font-size: 2rem;
   }
   .breathing-instruction {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   #breath-phase {
+    font-size: 1.1rem;
+  }
+  
+  .tracker-section {
+    padding: 1.5rem 0.5rem;
+  }
+  .tracker-section h2 {
     font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .tracker-table-wrapper {
+    padding: 0.3rem;
+  }
+  .challenge-table {
+    font-size: 0.8rem;
+  }
+  .challenge-table th {
+    padding: 0.8rem 0.4rem;
+    font-size: 0.75rem;
+  }
+  .challenge-table td {
+    padding: 0.7rem 0.4rem;
+    font-size: 0.8rem;
+  }
+  .challenge-table input[type="checkbox"] {
+    transform: scale(1.4);
+  }
+  .challenge-table input[type="text"] {
+    padding: 0.4em 0.6em;
+    font-size: 0.75rem;
+  }
+  
+  .footer-section {
+    padding: 2rem 0.8rem 1.5rem 0.8rem;
+  }
+  .footer-quote {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+  .footer-note {
+    font-size: 0.8rem;
   }
 }
 
@@ -778,7 +1056,7 @@ body {
 .workout-video {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   background: #000;

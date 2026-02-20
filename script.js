@@ -1,6 +1,5 @@
-// --- Smooth Scroll ---
+// Smooth scroll for anchor links
 document.addEventListener('DOMContentLoaded', function () {
-    // Attach smooth scroll to all anchor links with #
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href').slice(1);
@@ -13,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// --- Plank Countdown Timer ---
+// Plank challenge timer
 document.addEventListener('DOMContentLoaded', function () {
-    const START_SECONDS = 30; // 30-second plank challenge
+    const START_SECONDS = 30;
     let timerInterval;
     let remainingSeconds = START_SECONDS;
     
@@ -36,19 +35,15 @@ document.addEventListener('DOMContentLoaded', function () {
     function startPlankTimer() {
         if (!startBtn || !timerDisplay || !timerDiv) return;
         
-        // Show the timer and hide the button
         timerDiv.classList.remove('hidden');
         startBtn.disabled = true;
         startBtn.textContent = 'Planking...';
         
-        // Reset to start from 30 seconds
         remainingSeconds = START_SECONDS;
         timerDisplay.textContent = remainingSeconds;
         
-        // Clear any existing interval
         if (timerInterval) clearInterval(timerInterval);
         
-        // Start countdown
         timerInterval = setInterval(() => {
             remainingSeconds--;
             timerDisplay.textContent = remainingSeconds;
@@ -71,16 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     
-    // Initialize timer display
     resetTimer();
 });
 
-// --- Deep Breathing Countdown Timer ---
+// Deep breathing exercise timer
 document.addEventListener('DOMContentLoaded', function () {
-    const START_SECONDS = 60; // 1-minute deep breathing challenge
+    const START_SECONDS = 60;
     let breathingInterval;
     let remainingSeconds = START_SECONDS;
-    let breathCycle = 0; // Track breathing cycle (0: inhale, 1: hold, 2: exhale, 3: hold)
+    let breathCycle = 0;
     
     const startBtn = document.getElementById('start-breathing-btn');
     const timerDisplay = document.getElementById('breathing-display');
@@ -110,24 +104,21 @@ document.addEventListener('DOMContentLoaded', function () {
     function startBreathingTimer() {
         if (!startBtn || !timerDisplay || !timerDiv || !guideDiv || !breathPhase) return;
         
-        // Show the timer and guide
         timerDiv.classList.remove('hidden');
         guideDiv.classList.remove('hidden');
         startBtn.disabled = true;
         startBtn.textContent = 'Breathing...';
         
-        // Reset to start from 60 seconds
         remainingSeconds = START_SECONDS;
         timerDisplay.textContent = remainingSeconds;
         breathCycle = 0;
         
-        // Clear any existing interval
         if (breathingInterval) clearInterval(breathingInterval);
         
         let phaseSecond = 0;
         let currentPhase = 0;
         
-        // Update breathing phase
+        // Cycle through breathing phases
         function updateBreathingPhase() {
             const phase = breathingPhases[currentPhase];
             if (breathPhase) {
@@ -141,12 +132,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         
-        // Start countdown
         breathingInterval = setInterval(() => {
             remainingSeconds--;
             timerDisplay.textContent = remainingSeconds;
             
-            // Update breathing phase every second
             updateBreathingPhase();
             
             if (remainingSeconds <= 0) {
@@ -160,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }, 1000);
         
-        // Initial phase update
         updateBreathingPhase();
     }
     
@@ -171,17 +159,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     
-    // Initialize timer display
     resetBreathingTimer();
 });
 
-// --- Simple Animation Effects ---
-// Fade-in elements when they enter viewport
-
+// Fade-in animation on scroll
 (function () {
     const animatedClass = 'fade-in-when-visible';
 
-    // CSS for fade-in (if not already present, inject for demo)
     if(!document.getElementById('fade-in-when-visible-style')) {
         const style = document.createElement('style');
         style.id = 'fade-in-when-visible-style';
@@ -199,10 +183,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.head.appendChild(style);
     }
 
-    // Add fade-in class to all routine cards for demo
     document.querySelectorAll('.routine-card').forEach(card => card.classList.add(animatedClass));
 
-    // Intersection Observer for fade-in
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
@@ -215,7 +197,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.querySelectorAll('.' + animatedClass).forEach(el => observer.observe(el));
     } else {
-        // Fallback: show all instantly
         document.querySelectorAll('.' + animatedClass).forEach(el => el.classList.add('is-visible'));
     }
 })();
