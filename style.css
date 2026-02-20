@@ -1,0 +1,964 @@
+:root {
+  --primary: #60a3fc;
+  --secondary: #9fd8cb;
+  --accent: #eaf6fb;
+  --text-dark: #212943;
+  --text-light: #ffffff;
+  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --radius: 1.25rem;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-title: 'Montserrat', Arial, sans-serif;
+  --font-body: 'Montserrat', Arial, sans-serif;
+}
+
+/* Reset & Base structure */
+html {
+  box-sizing: border-box;
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: linear-gradient(135deg, #eaf6fb 0%, #9fd8cb 80%);
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 65vh;
+  min-height: 400px;
+  background: linear-gradient(120deg, #60a3fc 0%, #9fd8cb 100%);
+  box-shadow: var(--shadow);
+  border-radius: 0 0 var(--radius) var(--radius);
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  /* Optionally you can add a hero-img here as a background */
+  background: rgba(96,163,252,0.20);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--text-light);
+  padding: 2rem 1.5rem;
+}
+
+.hero-content h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  letter-spacing: 1.5px;
+  margin: 0 0 1rem;
+  font-weight: 700;
+}
+
+.hero-content .subtitle {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: #eaf6fb;
+  opacity: .93;
+  margin-bottom: 2rem;
+}
+
+/* Gradient button styles */
+.scroll-btn, .routine-card a {
+  display: inline-block;
+  background: linear-gradient(90deg, #60a3fc 0%, #9fd8cb 100%);
+  padding: 0.85em 2.3em;
+  color: var(--text-light);
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 100px;
+  box-shadow: 0 6px 20px rgba(96,163,252,0.15);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.scroll-btn:hover, .routine-card a:hover {
+  background: linear-gradient(90deg, #3889fa 0%, #86d8ab 100%);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 32px rgba(60,120,250,0.22);
+}
+
+/* Routine Section */
+.routine-section {
+  padding: 3rem 1.2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.routine-section h2 {
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 1.3px;
+  color: var(--primary);
+  margin-bottom: 2rem;
+}
+
+.routine-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  gap: 2rem;
+}
+
+/* Routine Card Styling */
+.routine-card {
+  background: var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+.routine-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
+  background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+.routine-icon img {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #fff;
+  object-fit: cover;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 2px 10px rgba(60,163,252,0.10);
+}
+
+.routine-card h3 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+
+.routine-card ul {
+  padding: 0 0 0 1.2em;
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* Weekly Challenge/Table Styling */
+.challenge-section {
+  padding: 2.5rem 1rem 3.5rem 1rem;
+  margin: auto;
+  max-width: 1000px;
+}
+.challenge-section h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 1.7rem;
+  font-family: var(--font-title);
+  font-size: 2rem;
+}
+.challenge-table-container {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #fafdff;
+  padding: 1rem;
+}
+.challenge-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 400px;
+}
+.challenge-table th, .challenge-table td {
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+  background: #eaf6fb;
+  border-bottom: 2px solid #dbeafe;
+  font-size: 1rem;
+}
+.challenge-table th {
+  color: var(--primary);
+  background: #e0f2fe;
+  font-family: var(--font-title);
+  font-weight: 600;
+  letter-spacing: 0.7px;
+}
+.challenge-table tr:last-child td {
+  border-bottom: none;
+}
+.challenge-table input[type="checkbox"] {
+  accent-color: var(--primary);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+.challenge-table input[type="text"] {
+  border: 1.5px solid #b9e6fc;
+  border-radius: 16px;
+  padding: 0.3em 1em;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 6px 0 rgba(55, 172, 192, 0.05);
+  transition: border var(--transition), box-shadow var(--transition);
+}
+.challenge-table input[type="text"]:focus {
+  border: 2px solid var(--primary);
+  outline: none;
+  box-shadow: 0 3px 16px rgba(73, 186, 252, 0.13);
+}
+
+/* Footer */
+.footer-section {
+  background: linear-gradient(90deg, #60a3fc 0%, #9fd8cb 100%);
+  color: var(--text-light);
+  margin-top: 2.5rem;
+  text-align: center;
+  padding: 2.5rem 1rem 1.4rem 1rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: var(--shadow);
+}
+
+.footer-quote {
+  font-size: 1.15rem;
+  font-style: italic;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.6px;
+}
+
+.footer-note {
+  font-size: 1rem;
+  opacity: 0.92;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-content, .routine-card {
+  animation: fadeInUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+}
+.routine-card {
+  animation-delay: 0.15s;
+}
+
+.scroll-btn {
+  animation: fadeInUp 1.2s 0.2s both;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .hero-section {
+    height: 54vh;
+    min-height: 290px;
+  }
+  .routine-section {
+    padding: 2rem 0.6rem;
+  }
+  .routine-cards {
+    gap: 1.2rem;
+  }
+  .budget-section {
+    padding: 2.5rem 1rem;
+  }
+  .budget-cards {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.3rem;
+  }
+  .benefits-section {
+    padding: 2.5rem 1rem;
+  }
+  .benefits-cards {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.3rem;
+  }
+  .roleplay-section {
+    padding: 2.5rem 1rem;
+  }
+  .roleplay-cards {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.3rem;
+  }
+  .workouts-section {
+    padding: 3rem 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .workouts-section h2 {
+    font-size: 2rem;
+  }
+  .workouts-subtitle {
+    font-size: 1.1rem;
+  }
+  .workouts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 16px;
+  }
+  .hero-section {
+    height: 36vh;
+    min-height: 180px;
+    border-radius: 0 0 1rem 1rem;
+  }
+  .hero-content {
+    padding: 1.1rem 0.3rem;
+  }
+  .routine-section {
+    padding: 1.2rem 0.2rem;
+  }
+  .routine-card {
+    padding: 1.1rem 0.5rem 1rem 0.5rem;
+  }
+  .budget-section {
+    padding: 2rem 1rem;
+  }
+  .budget-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .budget-cards {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+  .budget-card {
+    max-width: 100%;
+    padding: 1.5rem 1.2rem;
+  }
+  .benefits-section {
+    padding: 2rem 1rem;
+  }
+  .benefits-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .benefits-cards {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+  .benefit-card {
+    max-width: 100%;
+    padding: 1.5rem 1.2rem;
+  }
+  .roleplay-section {
+    padding: 2rem 1rem;
+  }
+  .roleplay-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .roleplay-cards {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+  .role-card {
+    max-width: 100%;
+    padding: 1.5rem 1.2rem;
+  }
+  .workouts-section {
+    padding: 2.5rem 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .workouts-section h2 {
+    font-size: 1.8rem;
+  }
+  .workouts-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .workouts-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 100%;
+  }
+  .workout-card {
+    max-width: 100%;
+  }
+  .workout-content {
+    padding: 1.5rem 1.2rem;
+  }
+  .workout-content h3 {
+    font-size: 1.4rem;
+  }
+  .plank-section {
+    padding: 2rem 1rem;
+    margin: 1.5rem auto;
+  }
+  .breathing-section {
+    padding: 2rem 1rem;
+    margin: 1.5rem auto;
+  }
+  .breathing-section h2 {
+    font-size: 1.5rem;
+  }
+  .breathing-timer {
+    font-size: 2rem;
+  }
+  #breathing-display {
+    font-size: 2.5rem;
+  }
+  .breathing-instruction {
+    font-size: 1.1rem;
+  }
+  #breath-phase {
+    font-size: 1.3rem;
+  }
+  .footer-section {
+    font-size: 0.96rem;
+    padding: 1.3rem 0.5rem 1rem 0.5rem;
+    border-radius: 1rem 1rem 0 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  .routine-section h2 {
+    font-size: 1.1rem;
+  }
+  .budget-section h2 {
+    font-size: 1.3rem;
+  }
+  .budget-card {
+    padding: 1.3rem 1rem;
+  }
+  .budget-card h3 {
+    font-size: 1.2rem;
+  }
+  .budget-card p {
+    font-size: 0.95rem;
+  }
+  .benefits-section h2 {
+    font-size: 1.3rem;
+  }
+  .benefit-card {
+    padding: 1.3rem 1rem;
+  }
+  .benefit-card h3 {
+    font-size: 1.2rem;
+  }
+  .benefit-card p {
+    font-size: 0.95rem;
+  }
+  .roleplay-section h2 {
+    font-size: 1.3rem;
+  }
+  .role-card {
+    padding: 1.3rem 1rem;
+  }
+  .role-card h3 {
+    font-size: 1.2rem;
+  }
+  .role-card p {
+    font-size: 0.95rem;
+  }
+  .role-avatar img {
+    width: 80px;
+    height: 80px;
+  }
+  .workouts-section {
+    padding: 2rem 0.8rem;
+  }
+  .workouts-section h2 {
+    font-size: 1.5rem;
+  }
+  .workouts-subtitle {
+    font-size: 0.95rem;
+  }
+  .workout-content h3 {
+    font-size: 1.3rem;
+  }
+  .workout-duration {
+    font-size: 0.9rem;
+  }
+  .workout-description {
+    font-size: 0.95rem;
+  }
+  .breathing-section {
+    padding: 1.5rem 0.8rem;
+  }
+  .breathing-section h2 {
+    font-size: 1.3rem;
+  }
+  .breathing-timer {
+    font-size: 1.8rem;
+  }
+  #breathing-display {
+    font-size: 2rem;
+  }
+  .breathing-instruction {
+    font-size: 1rem;
+  }
+  #breath-phase {
+    font-size: 1.2rem;
+  }
+}
+
+/* Budget Section */
+.budget-section {
+  padding: 3rem 1.2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.budget-section h2 {
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 1.3px;
+  color: var(--primary);
+  margin-bottom: 2rem;
+}
+
+.budget-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.budget-card {
+  background: var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  width: 100%;
+  max-width: 280px;
+}
+
+.budget-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
+  background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+.budget-card h3 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+
+.budget-card p {
+  margin: 0.5rem 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+.budget-card p:last-child {
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 1rem;
+  font-size: 1.15rem;
+}
+
+/* Benefits Section */
+.benefits-section {
+  padding: 3rem 1.2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.benefits-section h2 {
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 1.3px;
+  color: var(--primary);
+  margin-bottom: 2rem;
+}
+
+.benefits-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.benefit-card {
+  background: var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  width: 100%;
+  max-width: 280px;
+}
+
+.benefit-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
+  background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+.benefit-card h3 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+
+.benefit-card p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+/* Roleplay Section */
+.roleplay-section {
+  padding: 3rem 1.2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.roleplay-section h2 {
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 1.3px;
+  color: var(--primary);
+  margin-bottom: 2rem;
+}
+
+.roleplay-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.role-card {
+  background: var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.role-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
+  background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+.role-avatar {
+  margin-bottom: 1.2rem;
+}
+
+.role-avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary);
+  box-shadow: 0 4px 12px rgba(96, 163, 252, 0.2);
+}
+
+.role-card h3 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+
+.role-card p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  font-style: italic;
+}
+
+/* Workouts Section */
+.workouts-section {
+  padding: 4rem 1.2rem;
+  max-width: 1400px;
+  margin: auto;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+  border-radius: var(--radius);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.workouts-section h2 {
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: 1.5px;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.workouts-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+.workouts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.workout-card {
+  background: var(--text-light);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid transparent;
+}
+
+.workout-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(96, 163, 252, 0.3);
+  border-color: var(--primary);
+}
+
+.workout-video {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.workout-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+}
+
+.workout-content {
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+}
+
+.workout-content h3 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  margin: 0 0 0.8rem;
+  color: var(--primary);
+  font-size: 1.6rem;
+}
+
+.workout-duration {
+  font-weight: 600;
+  color: var(--secondary);
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+
+.workout-description {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+/* Plank Challenge Section */
+.plank-section {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
+  border-radius: var(--radius);
+  margin: 2rem auto;
+  max-width: 800px;
+  box-shadow: var(--shadow);
+}
+
+.plank-btn {
+  background: var(--primary);
+  color: var(--text-light);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  margin: 1.5rem 0;
+}
+
+.plank-btn:hover:not(:disabled) {
+  background: #4a8efc;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+}
+
+.plank-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.plank-timer {
+  margin: 2rem auto;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.plank-timer.hidden {
+  display: none;
+}
+
+#timer-display {
+  font-size: 3rem;
+  color: var(--text-dark);
+}
+
+/* Deep Breathing Challenge Section */
+.breathing-section {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+  border-radius: var(--radius);
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.breathing-btn {
+  background: var(--secondary);
+  color: var(--text-light);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  margin: 1.5rem 0;
+}
+
+.breathing-btn:hover:not(:disabled) {
+  background: #7fc9b8;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+}
+
+.breathing-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.breathing-timer {
+  margin: 2rem auto;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.breathing-timer.hidden {
+  display: none;
+}
+
+#breathing-display {
+  font-size: 3rem;
+  color: var(--text-dark);
+}
+
+.breathing-guide {
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius);
+  max-width: 400px;
+}
+
+.breathing-guide.hidden {
+  display: none;
+}
+
+.breathing-instruction {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+#breath-phase {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  color: var(--secondary);
+  font-weight: 700;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
