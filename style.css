@@ -4,11 +4,24 @@
   --accent: #eaf6fb;
   --text-dark: #212943;
   --text-light: #ffffff;
+  --bg-color: #ffffff;
+  --bg-secondary: #f8fafc;
   --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   --radius: 1.25rem;
   --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
   --font-title: 'Montserrat', Arial, sans-serif;
   --font-body: 'Montserrat', Arial, sans-serif;
+}
+
+[data-theme="dark"] {
+  --primary: #7bb3ff;
+  --secondary: #a8e5d3;
+  --accent: #1a2332;
+  --text-dark: #e2e8f0;
+  --text-light: #ffffff;
+  --bg-color: #0f172a;
+  --bg-secondary: #1e293b;
+  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* Base styles */
@@ -24,16 +37,234 @@ html {
 
 body {
   margin: 0;
+  padding-top: 70px;
   font-family: var(--font-body);
   color: var(--text-dark);
   background: linear-gradient(135deg, #eaf6fb 0%, #9fd8cb 80%);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background var(--transition), color var(--transition);
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 80%);
 }
 
 button, a, input[type="checkbox"], input[type="text"] {
   touch-action: manipulation;
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, #60a3fc 0%, #9fd8cb 50%, #7fc9b8 100%);
+  z-index: 10000;
+  transition: width 0.1s ease-out;
+  box-shadow: 0 2px 10px rgba(96, 163, 252, 0.5);
+}
+
+/* Navigation bar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dark-mode-toggle {
+  background: var(--accent);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 1.2rem;
+  padding: 0;
+}
+
+.dark-mode-toggle:hover {
+  background: var(--primary);
+  transform: scale(1.1);
+}
+
+.dark-mode-toggle .light-icon {
+  display: none;
+}
+
+[data-theme="dark"] .dark-mode-toggle .dark-icon {
+  display: none;
+}
+
+[data-theme="dark"] .dark-mode-toggle .light-icon {
+  display: block;
+}
+
+[data-theme="dark"] .dark-mode-toggle:hover {
+  background: rgba(123, 179, 255, 0.2);
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .navbar {
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .navbar.scrolled {
+  background: rgba(15, 23, 42, 0.98);
+}
+
+[data-theme="dark"] .nav-link {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .nav-link:hover {
+  color: var(--primary);
+  background: rgba(123, 179, 255, 0.15);
+  border-radius: 0.5rem;
+}
+
+[data-theme="dark"] .nav-link.active {
+  color: var(--primary);
+  background: rgba(123, 179, 255, 0.2);
+}
+
+[data-theme="dark"] .nav-link.active:hover {
+  color: var(--primary);
+  background: rgba(123, 179, 255, 0.25);
+}
+
+[data-theme="dark"] .nav-link.active::after {
+  background: var(--primary);
+}
+
+[data-theme="dark"] .nav-logo a {
+  color: var(--primary);
+}
+
+[data-theme="dark"] .nav-logo a:hover {
+  color: var(--secondary);
+}
+
+.nav-logo a {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-logo a:hover {
+  color: var(--secondary);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.nav-link.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  gap: 4px;
+}
+
+.nav-toggle span {
+  width: 25px;
+  height: 3px;
+  background: var(--text-dark);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+[data-theme="dark"] .nav-toggle span {
+  background: var(--text-dark);
+}
+
+[data-theme="dark"] .nav-toggle:hover span {
+  background: var(--primary);
 }
 
 /* Hero section */
@@ -44,7 +275,9 @@ button, a, input[type="checkbox"], input[type="text"] {
   justify-content: center;
   height: 65vh;
   min-height: 400px;
-  background: linear-gradient(120deg, #60a3fc 0%, #9fd8cb 100%);
+  background: linear-gradient(-45deg, #60a3fc, #9fd8cb, #7fc9b8, #4a8efc);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   box-shadow: var(--shadow);
   border-radius: 0 0 var(--radius) var(--radius);
   overflow: hidden;
@@ -53,8 +286,33 @@ button, a, input[type="checkbox"], input[type="text"] {
 .hero-bg {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(96,163,252,0.20);
+  background: radial-gradient(circle at 30% 50%, rgba(96,163,252,0.3), transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(159,216,203,0.3), transparent 50%);
   z-index: 1;
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 
 .hero-content {
@@ -102,6 +360,12 @@ button, a, input[type="checkbox"], input[type="text"] {
   box-shadow: 0 12px 32px rgba(60,120,250,0.22);
 }
 
+[data-theme="dark"] .scroll-btn:hover, 
+[data-theme="dark"] .routine-card a:hover {
+  background: linear-gradient(90deg, #7bb3ff 0%, #a8e5d3 100%);
+  box-shadow: 0 12px 32px rgba(123, 179, 255, 0.3);
+}
+
 /* Routine Section */
 .routine-section {
   padding: 3rem 1.2rem;
@@ -109,13 +373,26 @@ button, a, input[type="checkbox"], input[type="text"] {
   margin: auto;
 }
 
-.routine-section h2 {
+.routine-section h2,
+.budget-section h2,
+.benefits-section h2,
+.roleplay-section h2,
+.workouts-section h2,
+.stats-section h2,
+.plank-section h2,
+.breathing-section h2,
+.tracker-section h2 {
   text-align: center;
   font-family: var(--font-title);
   font-weight: 700;
-  font-size: 2rem;
-  letter-spacing: 1.3px;
+  letter-spacing: 1px;
   color: var(--primary);
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.routine-section h2 {
+  font-size: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -133,13 +410,24 @@ button, a, input[type="checkbox"], input[type="text"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   position: relative;
+}
+
+[data-theme="dark"] .routine-card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .routine-card:hover {
   transform: translateY(-8px) scale(1.03);
   box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
   background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+[data-theme="dark"] .routine-card:hover {
+  background: linear-gradient(120deg, #1e293b 60%, #334155 100%);
+  border-color: var(--primary);
+  box-shadow: 0 16px 36px 0 rgba(123, 179, 255, 0.2);
 }
 
 .routine-icon img {
@@ -190,6 +478,11 @@ button, a, input[type="checkbox"], input[type="text"] {
   background: #fafdff;
   padding: 1rem;
   margin: 0 auto;
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .tracker-table-wrapper {
+  background: var(--bg-secondary);
 }
 
 .challenge-table-container {
@@ -216,6 +509,17 @@ button, a, input[type="checkbox"], input[type="text"] {
   border-bottom: 2px solid #dbeafe;
   font-size: 1rem;
   word-wrap: break-word;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+[data-theme="dark"] .challenge-table th,
+[data-theme="dark"] .challenge-table td {
+  background: var(--bg-secondary);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .challenge-table th {
+  background: var(--accent);
 }
 
 .challenge-table th {
@@ -244,17 +548,41 @@ button, a, input[type="checkbox"], input[type="text"] {
   padding: 0.5em 0.8em;
   font-size: 0.9rem;
   box-shadow: 0 1px 6px 0 rgba(55, 172, 192, 0.05);
-  transition: border var(--transition), box-shadow var(--transition);
+  transition: border var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
   width: 100%;
   max-width: 150px;
   box-sizing: border-box;
   text-align: center;
+  background: var(--bg-color);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .challenge-table input[type="text"] {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--accent);
+}
+
+[data-theme="dark"] .challenge-table input[type="text"]:focus {
+  border-color: var(--primary);
+  background: var(--bg-secondary);
 }
 
 .challenge-table input[type="text"]:focus {
   border: 2px solid var(--primary);
   outline: none;
   box-shadow: 0 3px 16px rgba(73, 186, 252, 0.13);
+}
+
+[data-theme="dark"] .challenge-table input[type="text"]:focus {
+  border-color: var(--primary);
+  background: var(--bg-secondary);
+  box-shadow: 0 3px 16px rgba(123, 179, 255, 0.2);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .challenge-table input[type="checkbox"]:hover {
+  transform: scale(1.5);
+  cursor: pointer;
 }
 
 /* Footer */
@@ -266,6 +594,12 @@ button, a, input[type="checkbox"], input[type="text"] {
   padding: 3rem 1.5rem 2rem 1.5rem;
   border-radius: var(--radius) var(--radius) 0 0;
   box-shadow: var(--shadow);
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .footer-section {
+  background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-quote {
@@ -320,6 +654,67 @@ button, a, input[type="checkbox"], input[type="text"] {
     min-height: 44px;
     min-width: 44px;
   }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .routine-icon img,
+  .role-avatar img {
+    max-width: none;
+  }
+
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.98);
+    width: 100%;
+    text-align: center;
+    transition: left 0.3s ease;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    padding: 2rem 0;
+    gap: 0;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-link {
+    padding: 1rem 2rem;
+    display: block;
+    width: 100%;
+  }
+
+  [data-theme="dark"] .nav-link:hover {
+    background: rgba(123, 179, 255, 0.15);
+    color: var(--primary);
+  }
+
+  [data-theme="dark"] .nav-link.active {
+    background: rgba(123, 179, 255, 0.2);
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-container {
+    padding: 1rem;
+  }
+
+  .nav-controls {
+    gap: 0.5rem;
+  }
+
+  .dark-mode-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
 }
 @media (max-width: 900px) {
   .hero-section {
@@ -345,6 +740,21 @@ button, a, input[type="checkbox"], input[type="text"] {
   .benefits-cards {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.3rem;
+  }
+  .stats-section {
+    padding: 3rem 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .stats-container {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+  .stat-number {
+    font-size: 3rem;
+  }
+  .stat-label {
+    font-size: 1rem;
   }
   .roleplay-section {
     padding: 2.5rem 1rem;
@@ -374,263 +784,406 @@ button, a, input[type="checkbox"], input[type="text"] {
   html {
     font-size: 16px;
   }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-logo a {
+    font-size: 1.2rem;
+  }
+
+  .nav-menu {
+    top: 65px;
+    padding: 1.5rem 0;
+  }
+
+  .nav-link {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  body {
+    padding-top: 65px;
+    overflow-x: hidden;
+  }
+
+  * {
+    max-width: 100%;
+  }
+
+  section {
+    overflow-x: hidden;
+  }
   
   .hero-section {
-    height: 40vh;
-    min-height: 250px;
+    height: 45vh;
+    min-height: 280px;
     border-radius: 0 0 1rem 1rem;
-    margin-bottom: 1rem;
-  }
-  .hero-content {
-    padding: 1.5rem 1rem;
-  }
-  .hero-content h1 {
-    font-size: 1.8rem;
-    line-height: 1.2;
-    margin-bottom: 0.8rem;
-  }
-  .hero-content .subtitle {
-    font-size: 1rem;
     margin-bottom: 1.5rem;
   }
+  .hero-content {
+    padding: 2rem 1rem;
+  }
+  .hero-content h1 {
+    font-size: 1.75rem;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    word-wrap: break-word;
+  }
+  .hero-content .subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
   .scroll-btn {
-    padding: 0.9rem 1.8rem;
-    font-size: 1rem;
+    padding: 0.95rem 2rem;
+    font-size: 0.95rem;
+    width: auto;
+    min-width: 200px;
   }
   
   .routine-section {
-    padding: 2rem 1rem;
-    margin-bottom: 1rem;
+    padding: 2.5rem 1rem;
+    margin-bottom: 1.5rem;
   }
   .routine-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 1.5rem;
     line-height: 1.3;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .routine-cards {
     gap: 1.5rem;
+    padding: 0 0.5rem;
   }
   .routine-card {
-    padding: 1.5rem 1rem;
+    padding: 1.75rem 1.25rem;
+    margin: 0 auto;
   }
   .routine-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
   }
   .routine-card ul {
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    text-align: left;
   }
-  .budget-section {
-    padding: 2rem 1rem;
+  .routine-icon img {
+    width: 55px;
+    height: 55px;
     margin-bottom: 1rem;
   }
+  .budget-section {
+    padding: 2.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
   .budget-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 1.5rem;
     line-height: 1.3;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .budget-cards {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    gap: 1.25rem;
     max-width: 100%;
+    padding: 0 0.5rem;
   }
   .budget-card {
     max-width: 100%;
-    padding: 1.5rem 1rem;
+    padding: 1.75rem 1.25rem;
+    margin: 0 auto;
   }
   .budget-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
   }
   .budget-card p {
     font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0.4rem 0;
   }
   
   .benefits-section {
-    padding: 2rem 1rem;
-    margin-bottom: 1rem;
+    padding: 2.5rem 1rem;
+    margin-bottom: 1.5rem;
   }
   .benefits-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 1.5rem;
     line-height: 1.3;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .benefits-cards {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    gap: 1.25rem;
     max-width: 100%;
+    padding: 0 0.5rem;
   }
   .benefit-card {
     max-width: 100%;
-    padding: 1.5rem 1rem;
+    padding: 1.75rem 1.25rem;
+    margin: 0 auto;
   }
   .benefit-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
   }
   .benefit-card p {
     font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .stats-section {
+    padding: 2.5rem 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .stats-section h2 {
+    font-size: 1.35rem;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 0.25rem;
+  }
+  .stat-card {
+    padding: 1.5rem 0.75rem;
+  }
+  .stat-number {
+    font-size: 2.5rem;
+    line-height: 1;
+    word-break: break-word;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-top: 0.5rem;
+    word-wrap: break-word;
   }
   
   .roleplay-section {
-    padding: 2rem 1rem;
-    margin-bottom: 1rem;
+    padding: 2.5rem 1rem;
+    margin-bottom: 1.5rem;
   }
   .roleplay-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 1.5rem;
     line-height: 1.3;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .roleplay-cards {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    gap: 1.25rem;
     max-width: 100%;
+    padding: 0 0.5rem;
   }
   .role-card {
     max-width: 100%;
-    padding: 1.5rem 1rem;
+    padding: 1.75rem 1.25rem;
+    margin: 0 auto;
   }
   .role-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
   }
   .role-card p {
     font-size: 0.95rem;
+    line-height: 1.6;
   }
-  .workouts-section {
-    padding: 2rem 1rem;
-    margin-top: 1rem;
+  .role-avatar img {
+    width: 90px;
+    height: 90px;
     margin-bottom: 1rem;
   }
+  .workouts-section {
+    padding: 2.5rem 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
   .workouts-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     line-height: 1.3;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .workouts-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+    line-height: 1.5;
   }
   .workouts-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     max-width: 100%;
+    padding: 0 0.5rem;
   }
   .workout-card {
     max-width: 100%;
+    margin: 0 auto;
   }
   .workout-content {
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 1.25rem;
   }
   .workout-content h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
   }
   .workout-duration {
     font-size: 0.9rem;
+    margin-bottom: 0.75rem;
   }
   .workout-description {
     font-size: 0.95rem;
+    line-height: 1.6;
   }
   
   .plank-section {
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
     margin: 1.5rem auto;
   }
   .plank-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     line-height: 1.3;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .plank-section p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
   }
   .plank-btn {
     padding: 1rem 1.5rem;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 300px;
+    font-size: 0.95rem;
+    width: calc(100% - 2rem);
+    max-width: 320px;
+    margin: 0 auto;
+    display: block;
   }
   .plank-timer {
     font-size: 2rem;
+    margin-top: 1.5rem;
   }
   #timer-display {
     font-size: 2.5rem;
   }
   
   .breathing-section {
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
     margin: 1.5rem auto;
   }
   .breathing-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     line-height: 1.3;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .breathing-section p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
   }
   .breathing-btn {
     padding: 1rem 1.5rem;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 300px;
+    font-size: 0.95rem;
+    width: calc(100% - 2rem);
+    max-width: 320px;
+    margin: 0 auto;
+    display: block;
   }
   .breathing-timer {
     font-size: 2rem;
+    margin-top: 1.5rem;
   }
   #breathing-display {
     font-size: 2.5rem;
   }
+  .breathing-guide {
+    margin: 1.5rem auto;
+    padding: 1.25rem;
+    max-width: 90%;
+  }
   .breathing-instruction {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   #breath-phase {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+    margin-top: 0.5rem;
   }
   
   .tracker-section {
-    padding: 2rem 0.8rem;
+    padding: 2.5rem 0.8rem;
     margin-bottom: 1.5rem;
   }
   .tracker-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     line-height: 1.3;
     margin-bottom: 1.5rem;
     padding: 0 0.5rem;
+    word-wrap: break-word;
   }
   .tracker-table-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 0.5rem;
-    margin: 0 -0.3rem;
+    padding: 0.75rem 0.5rem;
+    margin: 0 auto;
+    max-width: calc(100% - 0.5rem);
+    border-radius: 0.75rem;
   }
   .challenge-table {
     min-width: 100%;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     width: 100%;
   }
   .challenge-table th {
-    padding: 0.9rem 0.5rem;
-    font-size: 0.85rem;
-    white-space: nowrap;
+    padding: 0.85rem 0.4rem;
+    font-size: 0.8rem;
+    white-space: normal;
+    word-wrap: break-word;
   }
   .challenge-table th:first-child {
-    width: 25%;
+    width: 20%;
+    min-width: 60px;
   }
   .challenge-table th:nth-child(2) {
     width: 25%;
+    min-width: 80px;
   }
   .challenge-table th:nth-child(3) {
-    width: 50%;
+    width: 55%;
+    min-width: 120px;
   }
   .challenge-table td {
-    padding: 0.8rem 0.5rem;
+    padding: 0.75rem 0.4rem;
     font-size: 0.85rem;
+    word-wrap: break-word;
   }
   .challenge-table input[type="checkbox"] {
-    transform: scale(1.3);
+    transform: scale(1.4);
     cursor: pointer;
+    min-width: 24px;
+    min-height: 24px;
   }
   .challenge-table input[type="text"] {
-    padding: 0.5em 0.7em;
-    font-size: 0.85rem;
+    padding: 0.5em 0.6em;
+    font-size: 0.8rem;
     width: 100%;
     max-width: none;
     box-sizing: border-box;
+    min-height: 36px;
   }
   
   .footer-section {
@@ -639,7 +1192,7 @@ button, a, input[type="checkbox"], input[type="text"] {
     margin-top: 2rem;
   }
   .footer-quote {
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
     padding: 0 0.5rem;
@@ -649,8 +1202,9 @@ button, a, input[type="checkbox"], input[type="text"] {
     margin: 0.5rem 0;
   }
   .footer-note {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     opacity: 0.95;
+    padding: 0 0.5rem;
   }
 }
 
@@ -659,11 +1213,76 @@ button, a, input[type="checkbox"], input[type="text"] {
     font-size: 15px;
   }
   
+  .nav-logo a {
+    font-size: 1.1rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.9rem 1.25rem;
+  }
+  
+  .hero-section {
+    height: 42vh;
+    min-height: 260px;
+  }
+
+  .hero-content {
+    padding: 1.75rem 0.75rem;
+  }
+
   .hero-content h1 {
     font-size: 1.5rem;
+    line-height: 1.2;
   }
-  .routine-section h2 {
+
+  .hero-content .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .scroll-btn {
+    padding: 0.9rem 1.75rem;
+    font-size: 0.9rem;
+    min-width: 180px;
+  }
+
+  .routine-section,
+  .budget-section,
+  .benefits-section,
+  .roleplay-section,
+  .workouts-section,
+  .stats-section {
+    padding: 2rem 0.75rem;
+  }
+
+  .routine-section h2,
+  .budget-section h2,
+  .benefits-section h2,
+  .roleplay-section h2,
+  .workouts-section h2,
+  .stats-section h2 {
     font-size: 1.2rem;
+  }
+
+  .routine-card,
+  .budget-card,
+  .benefit-card,
+  .role-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .routine-card h3,
+  .budget-card h3,
+  .benefit-card h3,
+  .role-card h3 {
+    font-size: 1.15rem;
+  }
+
+  .routine-card ul,
+  .budget-card p,
+  .benefit-card p,
+  .role-card p {
+    font-size: 0.9rem;
   }
   .budget-section h2 {
     font-size: 1.3rem;
@@ -705,14 +1324,41 @@ button, a, input[type="checkbox"], input[type="text"] {
     width: 80px;
     height: 80px;
   }
-  .workouts-section {
-    padding: 2rem 0.8rem;
+  .stats-section {
+    padding: 1.5rem 0.8rem;
   }
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 0.25rem;
+  }
+  .stat-card {
+    padding: 1.5rem 0.75rem;
+  }
+  .stat-number {
+    font-size: 2.2rem;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+  }
+  
   .workouts-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   .workouts-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+  }
+  .workout-content {
+    padding: 1.25rem 1rem;
+  }
+  .workout-content h3 {
+    font-size: 1.15rem;
+  }
+  .workout-duration {
+    font-size: 0.85rem;
+  }
+  .workout-description {
+    font-size: 0.9rem;
   }
   .workout-content h3 {
     font-size: 1.3rem;
@@ -724,82 +1370,83 @@ button, a, input[type="checkbox"], input[type="text"] {
     font-size: 0.9rem;
   }
   
-  .plank-section {
-    padding: 1.5rem 0.8rem;
-  }
-  .plank-section h2 {
-    font-size: 1.2rem;
-  }
-  .plank-btn {
-    padding: 0.9rem 1.2rem;
-    font-size: 0.95rem;
-  }
-  .plank-timer {
-    font-size: 1.8rem;
-  }
-  #timer-display {
-    font-size: 2rem;
-  }
-  
+  .plank-section,
   .breathing-section {
-    padding: 1.5rem 0.8rem;
+    padding: 2rem 0.75rem;
   }
+  .plank-section h2,
   .breathing-section h2 {
     font-size: 1.2rem;
   }
+  .plank-section p,
+  .breathing-section p {
+    font-size: 0.85rem;
+  }
+  .plank-btn,
   .breathing-btn {
-    padding: 0.9rem 1.2rem;
-    font-size: 0.95rem;
+    padding: 0.95rem 1.25rem;
+    font-size: 0.9rem;
+    width: calc(100% - 1.5rem);
+    max-width: 280px;
   }
+  .plank-timer,
   .breathing-timer {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
   }
+  #timer-display,
   #breathing-display {
-    font-size: 2rem;
+    font-size: 2.25rem;
+  }
+  .breathing-guide {
+    padding: 1rem;
+    max-width: 95%;
   }
   .breathing-instruction {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
   #breath-phase {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
   }
   
   .tracker-section {
-    padding: 1.5rem 0.5rem;
+    padding: 2rem 0.5rem;
   }
   .tracker-section h2 {
     font-size: 1.2rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.25rem;
   }
   .tracker-table-wrapper {
-    padding: 0.3rem;
+    padding: 0.5rem;
   }
   .challenge-table {
     font-size: 0.8rem;
   }
   .challenge-table th {
-    padding: 0.8rem 0.4rem;
+    padding: 0.75rem 0.3rem;
     font-size: 0.75rem;
   }
   .challenge-table td {
-    padding: 0.7rem 0.4rem;
+    padding: 0.7rem 0.3rem;
     font-size: 0.8rem;
   }
   .challenge-table input[type="checkbox"] {
-    transform: scale(1.4);
+    transform: scale(1.5);
+    min-width: 26px;
+    min-height: 26px;
   }
   .challenge-table input[type="text"] {
-    padding: 0.4em 0.6em;
+    padding: 0.45em 0.5em;
     font-size: 0.75rem;
+    min-height: 34px;
   }
   
   .footer-section {
-    padding: 2rem 0.8rem 1.5rem 0.8rem;
+    padding: 2rem 0.75rem 1.5rem 0.75rem;
   }
   .footer-quote {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.5;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.25rem;
   }
   .footer-note {
     font-size: 0.8rem;
@@ -836,15 +1483,26 @@ button, a, input[type="checkbox"], input[type="text"] {
   box-shadow: var(--shadow);
   padding: 1.8rem 1.5rem;
   text-align: center;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   width: 100%;
   max-width: 280px;
+}
+
+[data-theme="dark"] .budget-card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .budget-card:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
   background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+[data-theme="dark"] .budget-card:hover {
+  background: linear-gradient(120deg, #1e293b 60%, #334155 100%);
+  border-color: var(--primary);
+  box-shadow: 0 16px 36px 0 rgba(123, 179, 255, 0.2);
 }
 
 .budget-card h3 {
@@ -899,15 +1557,26 @@ button, a, input[type="checkbox"], input[type="text"] {
   box-shadow: var(--shadow);
   padding: 2rem 1.5rem;
   text-align: center;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   width: 100%;
   max-width: 280px;
+}
+
+[data-theme="dark"] .benefit-card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .benefit-card:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
   background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+[data-theme="dark"] .benefit-card:hover {
+  background: linear-gradient(120deg, #1e293b 60%, #334155 100%);
+  border-color: var(--primary);
+  box-shadow: 0 16px 36px 0 rgba(123, 179, 255, 0.2);
 }
 
 .benefit-card h3 {
@@ -923,6 +1592,76 @@ button, a, input[type="checkbox"], input[type="text"] {
   font-size: 1.05rem;
   line-height: 1.6;
   color: var(--text-dark);
+}
+
+/* Stats counters section */
+.stats-section {
+  padding: 4rem 1.2rem;
+  max-width: 1200px;
+  margin: auto;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #dbeafe 100%);
+  border-radius: var(--radius);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .stats-section {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  width: 100%;
+  max-width: 250px;
+}
+
+[data-theme="dark"] .stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(96, 163, 252, 0.2);
+}
+
+[data-theme="dark"] .stat-card:hover {
+  background: var(--accent);
+  border-color: var(--primary);
+  box-shadow: 0 16px 40px rgba(123, 179, 255, 0.3);
+}
+
+.stat-number {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  background: linear-gradient(135deg, #60a3fc 0%, #9fd8cb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  margin-top: 0.5rem;
 }
 
 /* Roleplay Section */
@@ -955,7 +1694,7 @@ button, a, input[type="checkbox"], input[type="text"] {
   box-shadow: var(--shadow);
   padding: 2rem 1.5rem;
   text-align: center;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   width: 100%;
   max-width: 280px;
   display: flex;
@@ -963,10 +1702,21 @@ button, a, input[type="checkbox"], input[type="text"] {
   align-items: center;
 }
 
+[data-theme="dark"] .role-card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .role-card:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 16px 36px 0 rgba(31, 38, 135, 0.18);
   background: linear-gradient(120deg, #eaf6fb 60%, #bce6fa 100%);
+}
+
+[data-theme="dark"] .role-card:hover {
+  background: linear-gradient(120deg, #1e293b 60%, #334155 100%);
+  border-color: var(--primary);
+  box-shadow: 0 16px 36px 0 rgba(123, 179, 255, 0.2);
 }
 
 .role-avatar {
@@ -1007,6 +1757,11 @@ button, a, input[type="checkbox"], input[type="text"] {
   border-radius: var(--radius);
   margin-top: 3rem;
   margin-bottom: 3rem;
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .workouts-section {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
 }
 
 .workouts-section h2 {
@@ -1039,7 +1794,7 @@ button, a, input[type="checkbox"], input[type="text"] {
   border-radius: var(--radius);
   box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
   overflow: hidden;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -1047,10 +1802,21 @@ button, a, input[type="checkbox"], input[type="text"] {
   border: 3px solid transparent;
 }
 
+[data-theme="dark"] .workout-card {
+  background: var(--bg-secondary);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .workout-card:hover {
   transform: translateY(-10px) scale(1.03);
   box-shadow: 0 20px 50px rgba(96, 163, 252, 0.3);
   border-color: var(--primary);
+}
+
+[data-theme="dark"] .workout-card:hover {
+  background: var(--accent);
+  border-color: var(--primary);
+  box-shadow: 0 20px 50px rgba(123, 179, 255, 0.4);
 }
 
 .workout-video {
@@ -1060,6 +1826,18 @@ button, a, input[type="checkbox"], input[type="text"] {
   height: 0;
   overflow: hidden;
   background: #000;
+}
+
+@media (max-width: 600px) {
+  .workout-video {
+    padding-bottom: 60%;
+  }
+}
+
+@media (max-width: 400px) {
+  .workout-video {
+    padding-bottom: 65%;
+  }
 }
 
 .workout-video video {
@@ -1108,6 +1886,12 @@ button, a, input[type="checkbox"], input[type="text"] {
   margin: 2rem auto;
   max-width: 800px;
   box-shadow: var(--shadow);
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .plank-section {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .plank-btn {
@@ -1128,6 +1912,11 @@ button, a, input[type="checkbox"], input[type="text"] {
   background: #4a8efc;
   transform: translateY(-2px);
   box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+}
+
+[data-theme="dark"] .plank-btn:hover:not(:disabled) {
+  background: #7bb3ff;
+  box-shadow: 0 12px 40px 0 rgba(123, 179, 255, 0.35);
 }
 
 .plank-btn:disabled {
@@ -1159,6 +1948,12 @@ button, a, input[type="checkbox"], input[type="text"] {
   border-radius: var(--radius);
   margin: 2rem auto;
   max-width: 800px;
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .breathing-section {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .breathing-btn {
@@ -1179,6 +1974,11 @@ button, a, input[type="checkbox"], input[type="text"] {
   background: #7fc9b8;
   transform: translateY(-2px);
   box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+}
+
+[data-theme="dark"] .breathing-btn:hover:not(:disabled) {
+  background: #a8e5d3;
+  box-shadow: 0 12px 40px 0 rgba(168, 229, 211, 0.35);
 }
 
 .breathing-btn:disabled {
@@ -1208,6 +2008,12 @@ button, a, input[type="checkbox"], input[type="text"] {
   background: rgba(255, 255, 255, 0.8);
   border-radius: var(--radius);
   max-width: 400px;
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .breathing-guide {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .breathing-guide.hidden {

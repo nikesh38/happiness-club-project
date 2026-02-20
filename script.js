@@ -1,3 +1,111 @@
+// Dark mode functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const html = document.documentElement;
+    
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        html.setAttribute('data-theme', savedTheme);
+    }
+    
+    // Toggle dark mode
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', function () {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+});
+
+// Navigation bar functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const navbar = document.getElementById('navbar');
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
+
+    // Mobile menu toggle
+    if (navToggle) {
+        navToggle.addEventListener('click', function () {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when clicking a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+        });
+    });
+
+    // Scroll progress bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    
+    function updateScrollProgress() {
+        if (!scrollProgress) return;
+        
+        const documentHeight = document.documentElement.scrollHeight;
+        const windowHeight = window.innerHeight;
+        const scrollableHeight = documentHeight - windowHeight;
+        
+        if (scrollableHeight <= 0) {
+            scrollProgress.style.width = '0%';
+            return;
+        }
+        
+        const scrolled = (window.scrollY / scrollableHeight) * 100;
+        scrollProgress.style.width = Math.min(Math.max(scrolled, 0), 100) + '%';
+    }
+
+    // Navbar scroll effect
+    function handleScroll() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    }
+
+    // Active section highlighting
+    function setActiveSection() {
+        let current = '';
+        const scrollY = window.pageYOffset;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                current = sectionId;
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', function () {
+        updateScrollProgress();
+        handleScroll();
+        setActiveSection();
+    });
+
+    updateScrollProgress();
+    handleScroll();
+    setActiveSection();
+});
+
 // Smooth scroll for anchor links
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -6,7 +114,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const target = document.getElementById(targetId);
             if (target) {
                 e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth' });
+                const offsetTop = target.offsetTop - 70;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
             }
         });
     });
@@ -160,6 +272,74 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     resetBreathingTimer();
+});
+
+
+// Challenge tracker localStorage
+document.addEventListener('DOMContentLoaded', function () {
+    const STORAGE_KEY = 'fitnessChallengeTracker';
+    
+    function saveTrackerData() {
+        const trackerData = {};
+        
+        for (let day = 1; day <= 7; day++) {
+            const checkbox = document.getElementById(`day${day}-checkbox`);
+            const notes = document.getElementById(`day${day}-notes`);
+            
+            if (checkbox && notes) {
+                trackerData[`day${day}`] = {
+                    completed: checkbox.checked,
+                    notes: notes.value
+                };
+            }
+        }
+        
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(trackerData));
+    }
+    
+    function loadTrackerData() {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+        
+        if (savedData) {
+            try {
+                const trackerData = JSON.parse(savedData);
+                
+                for (let day = 1; day <= 7; day++) {
+                    const dayData = trackerData[`day${day}`];
+                    if (dayData) {
+                        const checkbox = document.getElementById(`day${day}-checkbox`);
+                        const notes = document.getElementById(`day${day}-notes`);
+                        
+                        if (checkbox) {
+                            checkbox.checked = dayData.completed || false;
+                        }
+                        if (notes && dayData.notes) {
+                            notes.value = dayData.notes;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading tracker data:', e);
+            }
+        }
+    }
+    
+    // Load saved data on page load
+    loadTrackerData();
+    
+    // Save data when checkboxes or notes change
+    for (let day = 1; day <= 7; day++) {
+        const checkbox = document.getElementById(`day${day}-checkbox`);
+        const notes = document.getElementById(`day${day}-notes`);
+        
+        if (checkbox) {
+            checkbox.addEventListener('change', saveTrackerData);
+        }
+        if (notes) {
+            notes.addEventListener('input', saveTrackerData);
+            notes.addEventListener('blur', saveTrackerData);
+        }
+    }
 });
 
 // Fade-in animation on scroll

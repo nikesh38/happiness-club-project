@@ -8,6 +8,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Navigation bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#hero">Fit Student</a>
+            </div>
+            <div class="nav-controls">
+                <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode">
+                    <span class="dark-icon">🌙</span>
+                    <span class="light-icon">☀️</span>
+                </button>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#day-routine" class="nav-link">Routine</a></li>
+                <li><a href="#budget-fitness" class="nav-link">Budget</a></li>
+                <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                <li><a href="#workouts" class="nav-link">Workouts</a></li>
+                <li><a href="#plank-challenge" class="nav-link">Challenges</a></li>
+                <li><a href="#challenge-tracker" class="nav-link">Tracker</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Hero section -->
     <section id="hero" class="hero-section">
         <div class="hero-bg">
@@ -154,6 +186,7 @@
         </div>
     </section>
 
+
     <!-- Workout videos -->
     <section id="workouts" class="workouts-section">
         <h2>Essential Workouts for Students</h2>
@@ -283,38 +316,38 @@
                 <tbody>
                     <tr>
                         <td>Day 1</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="text" maxlength="20" placeholder="Quick note"></td>
+                        <td><input type="checkbox" id="day1-checkbox" data-day="1"></td>
+                        <td><input type="text" id="day1-notes" data-day="1" maxlength="20" placeholder="Quick note"></td>
                     </tr>
                     <tr>
                         <td>Day 2</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="text" maxlength="20" placeholder="Quick note"></td>
+                        <td><input type="checkbox" id="day2-checkbox" data-day="2"></td>
+                        <td><input type="text" id="day2-notes" data-day="2" maxlength="20" placeholder="Quick note"></td>
                     </tr>
                     <tr>
                         <td>Day 3</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="text" maxlength="20" placeholder="Quick note"></td>
+                        <td><input type="checkbox" id="day3-checkbox" data-day="3"></td>
+                        <td><input type="text" id="day3-notes" data-day="3" maxlength="20" placeholder="Quick note"></td>
                     </tr>
                     <tr>
                         <td>Day 4</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="text" maxlength="20" placeholder="Quick note"></td>
+                        <td><input type="checkbox" id="day4-checkbox" data-day="4"></td>
+                        <td><input type="text" id="day4-notes" data-day="4" maxlength="20" placeholder="Quick note"></td>
                     </tr>
                     <tr>
                         <td>Day 5</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="text" maxlength="20" placeholder="Quick note"></td>
+                        <td><input type="checkbox" id="day5-checkbox" data-day="5"></td>
+                        <td><input type="text" id="day5-notes" data-day="5" maxlength="20" placeholder="Quick note"></td>
                     </tr>
                     <tr>
                         <td>Day 6</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="text" maxlength="20" placeholder="Quick note"></td>
+                        <td><input type="checkbox" id="day6-checkbox" data-day="6"></td>
+                        <td><input type="text" id="day6-notes" data-day="6" maxlength="20" placeholder="Quick note"></td>
                     </tr>
                     <tr>
                         <td>Day 7</td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="text" maxlength="20" placeholder="Quick note"></td>
+                        <td><input type="checkbox" id="day7-checkbox" data-day="7"></td>
+                        <td><input type="text" id="day7-notes" data-day="7" maxlength="20" placeholder="Quick note"></td>
                     </tr>
                 </tbody>
             </table>
